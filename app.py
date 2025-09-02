@@ -1,13 +1,3 @@
-# Create a minimal-but-complete Streamlit interface that reads the previously generated
-# eligibility_rules.json and applies the decision logic. It allows entering baseline
-# scores and run-in metrics, computes inclusion/exclusion/safety, and shows messages.
-
-import os, json, textwrap
-
-base_app = "/mnt/data/eligibility_streamlit"
-os.makedirs(base_app, exist_ok=True)
-
-app_py = r'''
 import json
 import pathlib
 import streamlit as st
@@ -23,6 +13,7 @@ def load_rules():
         if p.exists():
             with open(p, "r") as f:
                 return json.load(f), str(p)
+    st.error("eligibility_rules.json not found. Place it next to app.py or in /mnt/data/eligibility_package/")
     st.stop()
 
 rules, rules_path = load_rules()
@@ -178,20 +169,3 @@ if st.button("Evaluate eligibility", type="primary"):
         """)
 
 st.caption("© Eligibility demo • thresholds editable in eligibility_rules.json")
-'''
-
-with open(os.path.join(base_app, "app.py"), "w") as f:
-    f.write(app_py)
-
-readme = textwrap.dedent("""\
-# Eligibility Checker (Streamlit)
-
-A demo Streamlit interface that implements a no-interview eligibility workflow.
-It reads thresholds and decision flow from `eligibility_rules.json` and evaluates Inclusion, Exclusion, Safety, and Run-in adherence.
-
-## Quick start
-
-### Option A: Run inside this environment
-```bash
-pip install streamlit
-streamlit run /mnt/data/eligibility_streamlit/app.py --server.port 8501
