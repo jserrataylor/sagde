@@ -1,0 +1,11 @@
+id,variable,operator,threshold,type,description
+age_adult,age,>=,18,inclusion,Age ≥ 18
+enrollment_active,enrollment_status,==,active,inclusion,Active enrollment at UPR-RP
+email_domain,email,endswith,.upr.edu|.uprrp.edu,inclusion,Institutional email domain
+phq9_severe_or_item9,phq9_total|phq9_item9,>=|>,20|0,exclusion,PHQ-9 total ≥ 20 or item 9 > 0
+gad7_severe,gad7_total,>=,20,exclusion,GAD-7 total ≥ 20
+ccaps_risk_high,ccaps_t_max,>=,80,exclusion,Any CCAPS T ≥ 80
+cssrs_high,cssrs_level,in,"ideation_with_plan,recent_attempt",exclusion,High C-SSRS risk per self-report
+recent_med_change,med_change_days,<,30,exclusion,Psychotropic medication change < 30 days
+recent_psych_hosp,psych_hosp_days,<,60,exclusion,Psychiatric hospitalization < 60 days
+data_quality_fail,failed_attention_checks|response_time_seconds,>=|<,2|min_time_seconds,exclusion,Low data quality (speeding/attention checks)

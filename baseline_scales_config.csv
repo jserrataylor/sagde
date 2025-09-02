@@ -1,0 +1,6 @@
+scale,scoring,cut_severe,item9_flag_value,min_inclusion_percentile,exclusion_t_max,exclude_levels
+PHQ9,sum,20.0,1.0,,,
+GAD7,sum,20.0,,,,
+DERS-E,percentile,,,50.0,,
+CCAPS-62,t_score,,,,80.0,
+C-SSRS Screener,ordinal,,,,,"ideation_with_plan,recent_attempt"

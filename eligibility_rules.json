@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "updated": "2025-09-02",
+  "scales": {
+    "phq9": {
+      "severe_cut": 20,
+      "item9_flag_value": 1
+    },
+    "gad7": {
+      "severe_cut": 20
+    },
+    "ders_e": {
+      "min_percentile_inclusion": 50
+    },
+    "ccaps": {
+      "t_score_max_exclusion": 80
+    }
+  },
+  "inclusion": [
+    {
+      "id": "age_adult",
+      "rule": "age >= 18",
+      "description": "Participant is 18 years or older."
+    },
+    {
+      "id": "enrollment_active",
+      "rule": "enrollment_status == 'active'",
+      "description": "Active enrollment at UPR-RP."
+    },
+    {
+      "id": "email_domain",
+      "rule": "endswith(email,'upr.edu') or endswith(email,'uprrp.edu')",
+      "description": "Institutional email domain."
+    }
+  ],
+  "exclusion": [
+    {
+      "id": "phq9_severe_or_item9",
+      "rule": "phq9_total >= 20 or phq9_item9 > 0",
+      "description": "Severe depression score or suicidal ideation item flagged."
+    },
+    {
+      "id": "gad7_severe",
+      "rule": "gad7_total >= 20",
+      "description": "Severe anxiety score."
+    },
+    {
+      "id": "ccaps_risk_high",
+      "rule": "max(ccaps_t_scores) >= 80",
+      "description": "Extreme risk on any CCAPS-62 T-score."
+    },
+    {
+      "id": "cssrs_high",
+      "rule": "cssrs_level in ['ideation_with_plan','recent_attempt']",
+      "description": "High acute risk per self-report C-SSRS screener."
+    },
+    {
+      "id": "recent_med_change",
+      "rule": "med_change_days < 30",
+      "description": "Psychotropic medication change within last 30 days."
+    },
+    {
+      "id": "recent_psych_hosp",
+      "rule": "psych_hosp_days < 60",
+      "description": "Psychiatric hospitalization within last 60 days."
+    },
+    {
+      "id": "data_quality_fail",
+      "rule": "failed_attention_checks >= 2 or response_time_seconds < min_time_seconds",
+      "description": "Poor data quality (speeding or failed attention checks)."
+    }
+  ],
+  "run_in": {
+    "duration_days": 14,
+    "metrics": [
+      {
+        "metric": "ema_completion_rate",
+        "rule": ">= 0.70",
+        "description": "At least 70% completion of EMA prompts."
+      },
+      {
+        "metric": "app_usage_days",
+        "rule": ">= 10",
+        "description": "Used the app at least 10 days out of 14."
+      }
+    ],
+    "adherence_threshold": 0.7
+  },
+  "decision_flow": [
+    "Step 1: If all inclusion TRUE and no exclusion rules triggered \u2192 ProvisionalEligibility",
+    "Step 2: After run-in, if (ema_completion_rate >= 0.70) AND (app_usage_days >= 10) \u2192 Eligible",
+    "Else \u2192 NotEligible",
+    "Any time if cssrs_high TRUE \u2192 SafetyProtocol + Exclusion"
+  ],
+  "messages": {
+    "eligible": "You are eligible to participate. We will contact you with next steps.",
+    "not_eligible": "You are not eligible to participate at this time. Here are resources for support...",
+    "review": "Your responses require manual review by the research team. We will follow up.",
+    "safety": "Your responses suggest acute distress. Please consider the following resources and contact options immediately..."
+  }
+}

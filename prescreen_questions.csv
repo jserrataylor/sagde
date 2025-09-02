@@ -1,0 +1,7 @@
+order,field_name,prompt_es,type,validation,choices,default
+1,age,¿Cuál es tu edad?,numeric,integer,,
+2,enrollment_status,¿Estás actualmente matriculado(a) en UPR-RP?,single_choice,,active;inactive,
+3,email,Correo institucional (@upr.edu/@uprrp.edu),text,email,,
+4,consent,He leído y acepto el consentimiento informado.,single_choice,,yes;no,
+5,attention_check_1,Marca 'Totalmente de acuerdo' para confirmar que lees las instrucciones.,single_choice,,Totalmente de acuerdo;En desacuerdo;Neutral,
+6,min_time_seconds,(Campo técnico oculto) Tiempo mínimo razonable por página (en segundos),numeric,integer,,60.0

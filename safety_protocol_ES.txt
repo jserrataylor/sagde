@@ -1,0 +1,15 @@
+PROCEDIMIENTO AUTOMATIZADO DE SEGURIDAD (C-SSRS / ALTA SEVERIDAD)
+
+1) Mensaje inmediato en pantalla (mostrar siempre que cssrs_high == TRUE):
+"Tu respuesta sugiere angustia aguda. Si te sientes en peligro inmediato, llama al 9-1-1. En Puerto Rico, puedes comunicarte con la Línea PAS: 1-800-981-0023 (24/7). También puedes acudir a la Sala de Emergencias más cercana. Si deseas, podemos notificar a un profesional clínico del equipo si diste tu consentimiento."
+
+2) Email/SMS (si consintió notificaciones):
+"Asunto: Recursos de apoyo inmediato. Tu respuesta indica que podrías estar atravesando una situación difícil. Si estás en peligro, llama al 9-1-1. Recurso PR: Línea PAS 1-800-981-0023. Recursos internacionales: https://www.opencounseling.com/suicide-hotlines (si aplica)."
+
+3) Registro de evento (solo metadatos, nunca contenido sensible):
+- timestamp, user_id pseudonimizado, trigger='cssrs_high', action='safety_banner + msg'
+- si consentimiento de contacto: 'alert_sent=true'
+
+4) Exclusión automática del estudio y redirección:
+- Marcar elegibilidad = 'NotEligible – Safety'
+- Redirigir a página de recursos
